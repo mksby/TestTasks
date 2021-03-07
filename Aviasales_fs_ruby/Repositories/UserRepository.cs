@@ -1,3 +1,4 @@
+using System.Linq;
 using TestTasks.Data;
 using TestTasks.DTO;
 using TestTasks.Interfaces;
@@ -9,6 +10,11 @@ namespace TestTasks.Repositories
         public UserRepository(AviasalesContext context) : base(context)
         {
             
+        }
+        
+        public User GetByEmail(string userEmail)
+        {
+            return Set.FirstOrDefault(user => user.Email == userEmail);
         }
     }
 }
