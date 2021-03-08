@@ -41,6 +41,7 @@ namespace TestTasks
              
              services.AddScoped<IUserRepository<User, int>, UserRepository>();
              services.AddScoped<IProgramRepository<TestTasks.DTO.Program, int>, ProgramRepository>();
+             services.AddScoped<ISubscriptionRepository<Subscription, int>, SubscriptionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

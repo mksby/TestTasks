@@ -9,6 +9,7 @@ namespace TestTasks.Data
     {
         public AviasalesContext()
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -19,6 +20,7 @@ namespace TestTasks.Data
 
         public virtual DbSet<TestTasks.DTO.Program> Programs { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Subscription> Subscriptions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

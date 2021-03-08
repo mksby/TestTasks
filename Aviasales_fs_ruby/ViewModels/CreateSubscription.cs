@@ -2,13 +2,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TestTasks.ViewModels
 {
-    public class CreateUser
+    public class CreateSubscription
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        public int UserId { get; set; }
         
         [Required]
-        public string Name { get; set; }
+        public int ProgramId { get; set; }
     }
 }

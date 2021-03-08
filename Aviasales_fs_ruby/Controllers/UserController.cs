@@ -14,7 +14,7 @@ namespace TestTasks.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserRepository<User, int> _userRepository;
-        
+
         public UserController(
             ILogger<UserController> logger,
             IUserRepository<User, int> userRepository
@@ -23,10 +23,10 @@ namespace TestTasks.Controllers
             _logger = logger;
             _userRepository = userRepository;
         }
-        
+
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [HttpPost]
         public ActionResult<User> Create([FromBody] CreateUser createUser)
         {
@@ -40,7 +40,7 @@ namespace TestTasks.Controllers
                 if (_userRepository.GetByEmail(createUser.Email) != null)
                 {
                     _logger.LogWarning($"create user.email {createUser.Email}");
-                    
+
                     return StatusCode(StatusCodes.Status409Conflict);
                 }
 
@@ -60,6 +60,35 @@ namespace TestTasks.Controllers
             catch (Exception exception)
             {
                 _logger.LogError("create user", exception);
+
+                throw;
+            }
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult<User> UserDetails(int id)
+        {
+            try
+            {
+                var user = _userRepository.GetById(id);
+
+                if (user == null)
+                {
+                    _logger.LogWarning($"user details {id}");
+                    
+                    return StatusCode(StatusCodes.Status404NotFound);
+                }
+
+                _logger.LogInformation($"user details {user.Id}");
+                
+                return new JsonResult(user);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError("user details", exception);
 
                 throw;
             }
