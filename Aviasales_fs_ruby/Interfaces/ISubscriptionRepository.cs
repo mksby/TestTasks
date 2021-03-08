@@ -8,10 +8,10 @@ namespace TestTasks.Interfaces
         where TEntity : class
         where TKey: struct
     {
-        IQueryable<Subscription> GetByUserId(int userId);
+        IQueryable<TEntity> GetByUserId(int userId);
         
-        Subscription GetByUserProgramIds(int userId, int programId);
+        TEntity GetByUserProgramIds(int userId, int programId);
         
-        IQueryable<Subscription> GetByProgramId(int programId);
+        IQueryable<TEntity> GetByProgramId(int programId);
     }
 }

@@ -18,18 +18,21 @@ namespace TestTasks.Controllers
         private readonly ISubscriptionRepository<Subscription, int> _subscriptionRepository;
         private readonly IUserRepository<User, int> _userRepository;
         private readonly IProgramRepository<TestTasks.DTO.Program, int> _programRepository;
+        private readonly IProgramBanRepository<ProgramBan, int> _programBanRepository;
 
         public SubscriptionController(
             ILogger<SubscriptionController> logger,
             ISubscriptionRepository<Subscription, int> subscriptionRepository,
             IUserRepository<User, int> userRepository,
-            IProgramRepository<TestTasks.DTO.Program, int> programRepository
+            IProgramRepository<TestTasks.DTO.Program, int> programRepository,
+            IProgramBanRepository<ProgramBan, int> programBanRepository
         )
         {
             _logger = logger;
             _subscriptionRepository = subscriptionRepository;
             _userRepository = userRepository;
             _programRepository = programRepository;
+            _programBanRepository = programBanRepository;
         }
 
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -102,8 +105,12 @@ namespace TestTasks.Controllers
                     return StatusCode(StatusCodes.Status404NotFound);
                 }
 
+                var banPrograms = _programBanRepository.GetUserPrograms(userId)
+                    .Select(p => p.ProgramId);
+
                 var programsIds = _subscriptionRepository.GetByUserId(userId)
                     .Select(s => s.ProgramId)
+                    .Except(banPrograms)
                     .ToArray();
 
                 var programs = _programRepository.GetByIds(programsIds);

@@ -6,6 +6,6 @@ namespace TestTasks.Interfaces
         where TEntity : class
         where TKey: struct
     {
-        User GetByEmail(string userEmail);
+        TEntity GetByEmail(string userEmail);
     }
 }

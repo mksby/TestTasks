@@ -41,6 +41,7 @@ namespace TestTasks
              
              services.AddScoped<IUserRepository<User, int>, UserRepository>();
              services.AddScoped<IProgramRepository<TestTasks.DTO.Program, int>, ProgramRepository>();
+             services.AddScoped<IProgramBanRepository<ProgramBan, int>, ProgramBanRepository>();
              services.AddScoped<ISubscriptionRepository<Subscription, int>, SubscriptionRepository>();
         }
 

@@ -19,6 +19,7 @@ namespace TestTasks.Data
         }
 
         public virtual DbSet<TestTasks.DTO.Program> Programs { get; set; }
+        public virtual DbSet<ProgramBan> ProgramBans { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
 

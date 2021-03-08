@@ -6,8 +6,8 @@ namespace TestTasks.Interfaces
         where TEntity : class
         where TKey: struct
     {
-        IQueryable<TestTasks.DTO.Program> GetByIds(int[] programIds);
+        IQueryable<TEntity> GetByIds(int[] programIds);
         
-        IQueryable<TestTasks.DTO.Program> GetByTerm(string term);
+        IQueryable<TEntity> GetByTerm(string term);
     }
 }
